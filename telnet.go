@@ -8,12 +8,12 @@ import (
 )
 
 func telnetServer() {
-	listener, err := net.Listen("tcp", "0.0.0.0:25")
+	listener, err := net.Listen("tcp", "0.0.0.0:23")
 	if err != nil {
-		log.Printf("failed to listen on 25 (listening on 2500 instead): %s", err)
-		listener, err = net.Listen("tcp", "0.0.0.0:2500")
+		log.Printf("failed to listen on 23 (listening on 2300 instead): %s", err)
+		listener, err = net.Listen("tcp", "0.0.0.0:2300")
 		if err != nil {
-			log.Fatal("failed to listen on 2500: %s", err)
+			log.Fatal("failed to listen on 2300: %s", err)
 		}
 	}
 
