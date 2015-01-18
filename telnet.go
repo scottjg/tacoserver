@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"log"
 	"net"
-	"io"
 	"strings"
 	"time"
 )
@@ -50,7 +49,7 @@ func telnetServer() {
 			tmp := make([]byte, 256)
 			for {
 				n, err := conn.Read(tmp)
-				if err == io.EOF {
+				if err != nil {
 					break
 				}
 
