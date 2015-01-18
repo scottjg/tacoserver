@@ -53,10 +53,12 @@ func telnetServer() {
 					break
 				}
 
-				// ctrl-c
+				// ctrl-c or ctrl-d
 				if (n == 5 &&
 				   tmp[0] == 255 && tmp[1] == 244 && tmp[2] == 255 &&
-				   tmp[3] == 253 && tmp[4] == 6) || (n == 1 && tmp[0] == 4) {
+				   tmp[3] == 253 && tmp[4] == 6) ||
+                                   (n == 1 && tmp[0] == 4) ||
+                                   (n == 2 && tmp[0] == 255 && tmp[1] == 236) {
 					break
 				}
 			}
