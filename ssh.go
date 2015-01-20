@@ -6,6 +6,7 @@ import (
 	"log"
 	"net"
 	"strings"
+	"time"
 
 	"golang.org/x/crypto/ssh"
 )
@@ -58,7 +59,30 @@ func sshServer() {
 					continue
 				}
 
-				fmt.Fprintf(channel, strings.Replace(Taco, "\n", "\r\n", -1))
+				go func(channel ssh.Channel) {
+					b := make([]byte, 256)
+					for {
+						n, err := channel.Read(b)
+						if err != nil || (n == 1 && (b[0] == 3 || b[0] == 4)) {
+							channel.Close()
+							break
+						}
+					}
+				}(channel)
+
+				for {
+					_, err := fmt.Fprintf(channel, strings.Replace(Taco, "\n", "\r\n", -1))
+					if err != nil {
+						break
+					}
+					time.Sleep(time.Second)
+					_, err = fmt.Fprintf(channel, "\033[8A" + strings.Replace(Taco2, "\n", "\r\n", -1))
+					if err != nil {
+						break
+					}
+					time.Sleep(time.Second)
+					fmt.Fprintf(channel, "\033[8A")
+				}
 				channel.Close()
 			}
 		}(conn)

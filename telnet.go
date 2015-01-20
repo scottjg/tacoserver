@@ -30,17 +30,17 @@ func telnetServer() {
 
 			log.Printf("New telnet connection from %s", conn.RemoteAddr())
 			for {
-				_, err := fmt.Fprintf(conn, strings.Replace(Taco1, "\n", "\r\n", -1))
+				_, err := fmt.Fprintf(conn, strings.Replace(Taco, "\n", "\r\n", -1))
 				if err != nil {
 					break
 				}
 				time.Sleep(time.Second)
-				_, err = fmt.Fprintf(conn, "\033[10A" + strings.Replace(Taco2, "\n", "\r\n", -1))
+				_, err = fmt.Fprintf(conn, "\033[8A" + strings.Replace(Taco2, "\n", "\r\n", -1))
 				if err != nil {
 					break
 				}
 				time.Sleep(time.Second)
-				fmt.Fprintf(conn, "\033[10A")
+				fmt.Fprintf(conn, "\033[8A")
 			}
 		}(conn)
 
