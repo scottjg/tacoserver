@@ -11,7 +11,7 @@ var Taco = `
 `
 
 var Taco2 = `
-      ╰╮╰╮╰╮ 
+      ╰╮╰╮╰╮
      _________
     ~&@~o^^^~^o\
    o~/          |
@@ -19,3 +19,13 @@ var Taco2 = `
  /o/_______-------
 
 `
+
+var lastTaco = false
+
+func NextTaco() string {
+	lastTaco = !lastTaco
+	if lastTaco {
+		return Taco
+	}
+	return Taco2
+}
