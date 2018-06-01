@@ -4,19 +4,11 @@ import (
 	"fmt"
 	"log"
 	"net/http"
-	"strings"
 )
 
 func handler(w http.ResponseWriter, r *http.Request) {
-	userAgent := r.Header.Get("User-Agent")
-	log.Printf("New HTTP connection from %s '%s'", r.RemoteAddr, userAgent)
-
-	if strings.Contains(userAgent, "Mozilla") {
-		fmt.Fprint(w, metaRefreshHTML(NextTaco()))
-		return
-	}
-
-	fmt.Fprintf(w, NextTaco())
+	log.Printf("New HTTP connection from %s '%s'", r.RemoteAddr, r.Header.Get("User-Agent"))
+	fmt.Fprintf(w, Taco)
 }
 
 func httpServer() {
